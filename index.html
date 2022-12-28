@@ -4,9 +4,27 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>📔 Library</title>
+    <link rel="stylesheet" href="output.css" />
     <link rel="stylesheet" href="node_modules/normalize.css/normalize.css" />
   </head>
-  <body></body>
+  <body>
+    <div>
+      <label for="title">Title</label>
+      <input type="text" id="title" placeholder="Title" />
+
+      <label for="author">Author</label>
+      <input type="text" id="author" placeholder="Author" />
+
+      <label for="num-pages">Number of pages read</label>
+      <input type="number" id="num-pages" placeholder="Pages" />
+
+      <label for="have-read">Read?</label>
+      <input type="checkbox" id="have-read" />
+
+      <button type="submit" id="add-book">Add book</button>
+    </div>
+
+    <script src="app.js" async defer></script>
+  </body>
 </html>
