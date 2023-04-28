@@ -1,108 +1,108 @@
 const myLibrary = [];
 
-function Book(title, author, pages, read) {
+function Movie(title, director, rating, watched) {
   this.title = title;
-  this.author = author;
-  this.pages = pages;
-  this.read = read;
+  this.director = director;
+  this.rating = rating;
+  this.watched = watched;
 }
 
-Book.prototype.info = function info() {
-  const readStatement = this.read ? 'have read' : 'not read yet';
-  return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatement}`;
+Movie.prototype.info = function info() {
+  const watchedStatement = this.watched ? 'have watched' : 'not watched yet';
+  return `${this.title} by ${this.director}, ${this.rating} stars, ${watchedStatement}`;
 };
 
 const titleElem = document.getElementById('title');
-const authorElem = document.getElementById('author');
-const numPagesElem = document.getElementById('num-pages');
-const haveReadElem = document.getElementById('have-read');
-const submit = document.getElementById('add-book');
+const directorElem = document.getElementById('director');
+const ratingElem = document.getElementById('rating');
+const haveWatchedElem = document.getElementById('have-watched');
+const submit = document.getElementById('add-movie');
 const inputs = document.querySelectorAll('input');
-const bookGrid = document.getElementById('book-grid');
+const movieGrid = document.getElementById('movie-grid');
 
 function clearInputs() {
   titleElem.value = '';
-  authorElem.value = '';
-  numPagesElem.value = '';
-  haveReadElem.value = '';
+  directorElem.value = '';
+  ratingElem.value = '';
+  haveWatchedElem.value = '';
 }
 
 function disableSubmit() {
-  if (titleElem.value && authorElem.value && numPagesElem.value) {
+  if (titleElem.value && directorElem.value && ratingElem.value) {
     submit.disabled = false;
   } else {
     submit.disabled = true;
   }
 }
 
-function renderBook(book) {
-  const bookCard = document.createElement('div');
+function renderMovie(movie) {
+  const movieCard = document.createElement('div');
   const infoGroup = document.createElement('div');
   const title = document.createElement('p');
-  const author = document.createElement('p');
-  const pages = document.createElement('p');
+  const director = document.createElement('p');
+  const watched = document.createElement('p');
   const buttonGroup = document.createElement('div');
   const removeBtn = document.createElement('button');
-  const readBtn = document.createElement('button');
+  const watchedBtn = document.createElement('button');
 
-  bookCard.classList.add('bg-white', 'rounded-2xl', 'border-4', 'p-4');
+  movieCard.classList.add('bg-white', 'rounded-2xl', 'border-4', 'p-4');
 
   infoGroup.classList.add('flex', 'flex-col', 'gap-2', 'mb-2', 'items-center');
   buttonGroup.classList.add('flex', 'flex-col', 'gap-4', 'text-black');
 
   removeBtn.classList.add('bg-gray-300', 'p-2', 'rounded-lg');
-  readBtn.classList.add('p-2', 'rounded-lg');
+  watchedBtn.classList.add('p-2', 'rounded-lg');
 
-  title.textContent = `"${book.title}"`;
-  author.textContent = `${book.author}`;
-  pages.textContent = ` Pages: ${book.pages}`;
+  title.textContent = `"${movie.title}"`;
+  director.textContent = `${movie.director}`;
+  watched.textContent = `Rating: ${movie.rating}`;
   removeBtn.textContent = 'Remove';
   removeBtn.type = 'submit';
-  readBtn.type = 'submit';
+  watchedBtn.type = 'submit';
 
-  if (book.read) {
-    readBtn.classList.add('bg-green-400');
-    readBtn.textContent = 'Read';
+  if (movie.watched) {
+    watchedBtn.classList.add('bg-green-400');
+    watchedBtn.textContent = 'Watched';
   } else {
-    readBtn.classList.add('bg-red-400');
-    readBtn.textContent = 'Not read';
+    watchedBtn.classList.add('bg-red-400');
+    watchedBtn.textContent = 'Not watched yet';
   }
 
   infoGroup.appendChild(title);
-  infoGroup.appendChild(author);
-  infoGroup.appendChild(pages);
-  buttonGroup.appendChild(readBtn);
+  infoGroup.appendChild(director);
+  infoGroup.appendChild(watched);
+  buttonGroup.appendChild(watchedBtn);
   buttonGroup.appendChild(removeBtn);
-  bookCard.appendChild(infoGroup);
-  bookCard.appendChild(buttonGroup);
+  movieCard.appendChild(infoGroup);
+  movieCard.appendChild(buttonGroup);
 
-  bookGrid.appendChild(bookCard);
+  movieGrid.appendChild(movieCard);
 }
 
-function addBookToLibrary() {
+function addMovieToLibrary() {
   const title = titleElem.value;
-  const author = authorElem.value;
-  const numPages = numPagesElem.value;
-  const haveRead = haveReadElem.value === 'on';
-  const newBook = new Book(title, author, numPages, haveRead);
-  myLibrary.push(newBook);
+  const director = directorElem.value;
+  const rating = ratingElem.value;
+  const haveWatched = haveWatchedElem.value;
+  const newMovie = new Movie(title, director, rating, haveWatched);
+  myLibrary.push(newMovie);
 
+  console.log(newMovie.info());
   clearInputs();
-  console.log(newBook.info());
-
-  renderBook(newBook);
+  disableSubmit();
+  renderMovie(newMovie);
 }
 
-function renderBooks() {
-  myLibrary.forEach((book) => {
-    renderBook(book);
+function renderMovies() {
+  myLibrary.forEach((movie) => {
+    renderMovie(movie);
   });
 }
 
-const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
-const HarryPotter = new Book('Harry Potter', 'J.K. Rowling', 1000, true);
-const StarWars = new Book('Star Wars', 'Luke Skywalker', -11, false);
-const Mario = new Book('Mario', 'Nintendo', 12312, true);
+const theHobbit = new Movie('The Hobbit', 'J.R.R. Tolkien', 5, false);
+const HarryPotter = new Movie('Harry Potter', 'J.K. Rowling', 1, true);
+const StarWars = new Movie('Star Wars', 'Luke Skywalker', 2, false);
+const Mario = new Movie('Mario', 'Nintendo', 3, true);
 
 myLibrary.push(theHobbit);
 myLibrary.push(HarryPotter);
@@ -114,8 +114,8 @@ myLibrary.push(Mario);
 
 console.log(myLibrary);
 
-renderBooks();
-submit.addEventListener('click', addBookToLibrary);
+renderMovies();
+submit.addEventListener('click', addMovieToLibrary);
 inputs.forEach((input) => {
   input.addEventListener('change', disableSubmit);
 });

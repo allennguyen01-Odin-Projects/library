@@ -2,6 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-#book-grid {
+#movie-grid {
   grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
 }

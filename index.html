@@ -4,17 +4,17 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" href="images/book.png" type="image/x-icon" />
+    <link rel="shortcut icon" href="images/movie.png" type="image/x-icon" />
     <title>My Library</title>
     <link rel="stylesheet" href="output.css" />
     <link rel="stylesheet" href="node_modules/normalize.css/normalize.css" />
   </head>
   <body class="m-6 bg-gray-100">
-    <h1 class="">My Library</h1>
+    <h1 class="text-5xl font-bold">Movie Library</h1>
 
     <form action="" method="get">
       <div
-        class="flex w-60 flex-col gap-3 rounded-2xl border-4 bg-gray-500 p-4"
+        class="mb-4 flex w-80 flex-col gap-3 rounded-2xl border-4 bg-gray-200 p-4"
       >
         <input
           type="text"
@@ -25,37 +25,44 @@
         />
         <input
           type="text"
-          id="author"
-          placeholder="Author"
+          id="director"
+          placeholder="Director"
           class="rounded-xl border border-solid border-black p-2"
           required
         />
 
-        <input
-          type="number"
-          id="num-pages"
-          placeholder="Pages"
-          class="rounded-xl border border-solid border-black p-2"
-          required
-        />
+        <div class="flex items-center gap-4">
+          <label for="rating">Rating:</label>
+          <input
+            type="range"
+            id="rating"
+            name="rating"
+            min="1"
+            max="5"
+            oninput="this.nextElementSibling.value = this.value"
+            class="rounded-xl border border-solid border-black p-2"
+            required
+          />
+          <output>3</output> stars
+        </div>
 
         <div class="items-start">
-          <label for="have-read">Read?</label>
-          <input type="checkbox" id="have-read" />
+          <label for="have-watched">Watched?</label>
+          <input type="checkbox" id="have-watched" />
         </div>
 
         <button
           disabled
           type="submit"
-          id="add-book"
+          id="add-movie"
           class="rounded-xl bg-white p-2"
         >
-          Add book
+          Add movie
         </button>
       </div>
     </form>
 
-    <div id="book-grid" class="grid gap-4"></div>
+    <div id="movie-grid" class="grid gap-4"></div>
 
     <script src="app.js" async defer></script>
   </body>
