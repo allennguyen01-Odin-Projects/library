@@ -9,12 +9,12 @@
     <link rel="stylesheet" href="output.css" />
     <link rel="stylesheet" href="node_modules/normalize.css/normalize.css" />
   </head>
-  <body class="m-6">
+  <body class="m-6 bg-gray-100">
     <h1 class="">My Library</h1>
 
     <form action="" method="get">
       <div
-        class="flex w-60 flex-col gap-3 rounded-2xl border-4 bg-slate-600 p-4"
+        class="flex w-60 flex-col gap-3 rounded-2xl border-4 bg-gray-500 p-4"
       >
         <input
           type="text"
@@ -44,11 +44,18 @@
           <input type="checkbox" id="have-read" />
         </div>
 
-        <button disabled type="submit" id="add-book" class="bg-white p-2">
+        <button
+          disabled
+          type="submit"
+          id="add-book"
+          class="rounded-xl bg-white p-2"
+        >
           Add book
         </button>
       </div>
     </form>
+
+    <div id="book-grid" class="grid gap-4"></div>
 
     <script src="app.js" async defer></script>
   </body>
