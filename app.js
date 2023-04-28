@@ -7,7 +7,7 @@ function Book(title, author, pages, read) {
   this.read = read;
 }
 
-Book.prototype.info = function info() {
+Book.prototype.info = function () {
   const readStatement = this.read ? 'have read' : 'not read yet';
   return `${this.title} by ${this.author}, ${this.pages} pages, ${readStatement}`;
 };
@@ -16,6 +16,8 @@ const titleElem = document.getElementById('title');
 const authorElem = document.getElementById('author');
 const numPagesElem = document.getElementById('num-pages');
 const haveReadElem = document.getElementById('have-read');
+const submit = document.getElementById('add-book');
+const inputs = document.querySelectorAll('input');
 
 function clearInputs() {
   titleElem.value = '';
@@ -31,15 +33,25 @@ function addBookToLibrary() {
   const haveRead = haveReadElem.value === 'on';
   const newBook = new Book(title, author, numPages, haveRead);
   myLibrary.push(newBook);
+
   clearInputs();
-  console.log(myLibrary);
+  console.log(newBook.info());
+}
+
+function disableSubmit() {
+  if (titleElem.value && authorElem.value && numPagesElem.value) {
+    submit.disabled = false;
+  } else {
+    submit.disabled = true;
+  }
 }
 
 const theHobbit = new Book('The Hobbit', 'J.R.R. Tolkien', 295, false);
 
 myLibrary.push(theHobbit);
-
-const submit = document.getElementById('add-book');
-submit.addEventListener('click', addBookToLibrary);
-
 console.log(theHobbit.info());
+
+submit.addEventListener('click', addBookToLibrary);
+inputs.forEach((input) => {
+  input.addEventListener('change', disableSubmit);
+});
