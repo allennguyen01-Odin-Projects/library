@@ -59,6 +59,11 @@ function toggleWatched(movie, watchedBtn) {
   }
 }
 
+function removeMovie(movie, movieCard) {
+  myLibrary.splice(myLibrary.indexOf(movie), 1);
+  movieCard.remove();
+}
+
 function renderMovie(movie) {
   const movieCard = document.createElement('div');
   const infoGroup = document.createElement('div');
@@ -93,6 +98,10 @@ function renderMovie(movie) {
 
   watchedBtn.addEventListener('click', () => {
     toggleWatched(movie, watchedBtn);
+  });
+
+  removeBtn.addEventListener('click', () => {
+    removeMovie(movie, movieCard);
   });
 
   if (movie.watched) {
