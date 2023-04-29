@@ -80,6 +80,9 @@ function renderMovie(movie) {
     'border-4',
     'p-4',
     'font-normal',
+    'flex',
+    'flex-col',
+    'justify-between',
   );
 
   infoGroup.classList.add('flex', 'flex-col', 'gap-2', 'mb-2', 'items-center');
@@ -87,7 +90,7 @@ function renderMovie(movie) {
 
   removeBtn.classList.add('bg-gray-300', 'p-2', 'rounded-lg');
   watchedBtn.classList.add('p-2', 'rounded-lg');
-  title.classList.add('font-bold', 'text-lg');
+  title.classList.add('font-bold', 'text-lg', 'text-center');
 
   title.textContent = `"${movie.title}"`;
   director.textContent = `${movie.director}`;
