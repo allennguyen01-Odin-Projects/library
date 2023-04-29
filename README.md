@@ -8,5 +8,6 @@ TOP "Project: Sign-Up Form" Link: https://www.theodinproject.com/lessons/node-pa
 
 📈 Improvements:
 
-Add filters for watched/not watched movies
-Fix text overflow
+- Add filters for watched/not watched movies
+
+- Fix text overflow
