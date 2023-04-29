@@ -1,5 +1,15 @@
 const myLibrary = [];
 
+const titleElem = document.getElementById('title');
+const directorElem = document.getElementById('director');
+const ratingElem = document.getElementById('rating');
+const haveWatchedElem = document.getElementById('have-watched');
+const submit = document.getElementById('new-movie');
+const inputs = document.querySelectorAll('input');
+const movieGrid = document.getElementById('movie-grid');
+const addMovieBtn = document.getElementById('add-movie');
+const movieModal = document.getElementById('movie-modal');
+
 function Movie(title, director, rating, watched) {
   this.title = title;
   this.director = director;
@@ -11,14 +21,6 @@ Movie.prototype.info = function info() {
   const watchedStatement = this.watched ? 'have watched' : 'not watched yet';
   return `${this.title} by ${this.director}, ${this.rating} stars, ${watchedStatement}`;
 };
-
-const titleElem = document.getElementById('title');
-const directorElem = document.getElementById('director');
-const ratingElem = document.getElementById('rating');
-const haveWatchedElem = document.getElementById('have-watched');
-const submit = document.getElementById('add-movie');
-const inputs = document.querySelectorAll('input');
-const movieGrid = document.getElementById('movie-grid');
 
 function clearInputs() {
   titleElem.value = '';
@@ -35,6 +37,14 @@ function disableSubmit() {
   }
 }
 
+function openNewMovieModal() {
+  movieModal.hidden = false;
+}
+
+function closeNewMovieModal() {
+  movieModal.hidden = true;
+}
+
 function renderMovie(movie) {
   const movieCard = document.createElement('div');
   const infoGroup = document.createElement('div');
@@ -45,17 +55,24 @@ function renderMovie(movie) {
   const removeBtn = document.createElement('button');
   const watchedBtn = document.createElement('button');
 
-  movieCard.classList.add('bg-white', 'rounded-2xl', 'border-4', 'p-4');
+  movieCard.classList.add(
+    'bg-white',
+    'rounded-2xl',
+    'border-4',
+    'p-4',
+    'font-normal',
+  );
 
   infoGroup.classList.add('flex', 'flex-col', 'gap-2', 'mb-2', 'items-center');
   buttonGroup.classList.add('flex', 'flex-col', 'gap-4', 'text-black');
 
   removeBtn.classList.add('bg-gray-300', 'p-2', 'rounded-lg');
   watchedBtn.classList.add('p-2', 'rounded-lg');
+  title.classList.add('font-bold', 'text-lg');
 
   title.textContent = `"${movie.title}"`;
   director.textContent = `${movie.director}`;
-  watched.textContent = `Rating: ${movie.rating}`;
+  watched.textContent = `Rating: ${movie.rating} stars`;
   removeBtn.textContent = 'Remove';
   removeBtn.type = 'submit';
   watchedBtn.type = 'submit';
@@ -83,13 +100,14 @@ function addMovieToLibrary() {
   const title = titleElem.value;
   const director = directorElem.value;
   const rating = ratingElem.value;
-  const haveWatched = haveWatchedElem.value;
+  const haveWatched = haveWatchedElem.value === 'on';
   const newMovie = new Movie(title, director, rating, haveWatched);
   myLibrary.push(newMovie);
 
   console.log(newMovie.info());
   clearInputs();
   disableSubmit();
+  closeNewMovieModal();
   renderMovie(newMovie);
 }
 
@@ -99,23 +117,45 @@ function renderMovies() {
   });
 }
 
-const theHobbit = new Movie('The Hobbit', 'J.R.R. Tolkien', 5, false);
-const HarryPotter = new Movie('Harry Potter', 'J.K. Rowling', 1, true);
-const StarWars = new Movie('Star Wars', 'Luke Skywalker', 2, false);
-const Mario = new Movie('Mario', 'Nintendo', 3, true);
+const theHobbit = new Movie(
+  'The Hobbit: An Unexpected Journey',
+  'Peter Jackson',
+  5,
+  false,
+);
+const HarryPotter = new Movie(
+  "Harry Potter and the Sorcerer's Stone",
+  'Chris Columbus',
+  4,
+  true,
+);
+const StarWars = new Movie(
+  'Star Wars: The Force Awakens',
+  'J.J. Abrams',
+  5,
+  false,
+);
+const Avatar = new Movie('Avatar: The Way of Water', 'James Cameron', 3, true);
 
 myLibrary.push(theHobbit);
 myLibrary.push(HarryPotter);
 myLibrary.push(StarWars);
-myLibrary.push(Mario);
-myLibrary.push(Mario);
-myLibrary.push(Mario);
-myLibrary.push(Mario);
+myLibrary.push(Avatar);
 
 console.log(myLibrary);
 
 renderMovies();
+
 submit.addEventListener('click', addMovieToLibrary);
+
 inputs.forEach((input) => {
   input.addEventListener('change', disableSubmit);
+});
+
+addMovieBtn.addEventListener('click', openNewMovieModal);
+
+window.addEventListener('click', (event) => {
+  if (event.target === movieModal) {
+    closeNewMovieModal();
+  }
 });

@@ -9,25 +9,43 @@
     <link rel="stylesheet" href="output.css" />
     <link rel="stylesheet" href="node_modules/normalize.css/normalize.css" />
   </head>
-  <body class="m-6 bg-gray-100">
+  <body class="m-6 flex flex-col bg-gray-100 font-mono">
     <h1 class="text-5xl font-bold">Movie Library</h1>
 
-    <form action="" method="get">
-      <div
-        class="mb-4 flex w-80 flex-col gap-3 rounded-2xl border-4 bg-gray-200 p-4"
+    <div class="self-center">
+      <button
+        class="m-2 w-fit rounded-lg p-4 text-xl font-semibold hover:bg-white"
+        id="add-movie"
       >
+        + Add movie
+      </button>
+    </div>
+
+    <div
+      class="fixed left-0 top-0 h-full w-full bg-black/50"
+      hidden
+      id="movie-modal"
+    >
+      <form
+        action=""
+        method="get"
+        id="movie-form"
+        class="absolute top-2/4 left-2/4 z-10 flex w-fit -translate-x-1/2 -translate-y-1/2 flex-col justify-center gap-6 rounded-2xl border-4 bg-gray-200 p-4"
+      >
+        <p class="self-center text-xl font-semibold">Add new movie</p>
+
         <input
           type="text"
           id="title"
           placeholder="Title"
-          class="rounded-xl border border-solid border-black p-2"
+          class="rounded-xl p-2"
           required
         />
         <input
           type="text"
           id="director"
           placeholder="Director"
-          class="rounded-xl border border-solid border-black p-2"
+          class="rounded-xl p-2"
           required
         />
 
@@ -46,21 +64,21 @@
           <output>3</output> stars
         </div>
 
-        <div class="items-start">
-          <label for="have-watched">Watched?</label>
-          <input type="checkbox" id="have-watched" />
+        <div class="justify-center self-center">
+          <label for="have-watched">Have you watched it?</label>
+          <input type="checkbox" class="h-6 w-6" id="have-watched" />
         </div>
 
         <button
           disabled
           type="submit"
-          id="add-movie"
+          id="new-movie"
           class="rounded-xl bg-white p-2"
         >
           Add movie
         </button>
-      </div>
-    </form>
+      </form>
+    </div>
 
     <div id="movie-grid" class="grid gap-4"></div>
 
