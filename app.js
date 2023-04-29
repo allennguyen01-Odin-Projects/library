@@ -45,6 +45,20 @@ function closeNewMovieModal() {
   movieModal.hidden = true;
 }
 
+function toggleWatched(movie, watchedBtn) {
+  movie.watched = !movie.watched;
+
+  if (movie.watched) {
+    watchedBtn.classList.remove('bg-red-400');
+    watchedBtn.classList.add('bg-green-400');
+    watchedBtn.textContent = 'Watched';
+  } else {
+    watchedBtn.classList.remove('bg-green-400');
+    watchedBtn.classList.add('bg-red-400');
+    watchedBtn.textContent = 'Not watched';
+  }
+}
+
 function renderMovie(movie) {
   const movieCard = document.createElement('div');
   const infoGroup = document.createElement('div');
@@ -77,12 +91,16 @@ function renderMovie(movie) {
   removeBtn.type = 'submit';
   watchedBtn.type = 'submit';
 
+  watchedBtn.addEventListener('click', () => {
+    toggleWatched(movie, watchedBtn);
+  });
+
   if (movie.watched) {
     watchedBtn.classList.add('bg-green-400');
     watchedBtn.textContent = 'Watched';
   } else {
     watchedBtn.classList.add('bg-red-400');
-    watchedBtn.textContent = 'Not watched yet';
+    watchedBtn.textContent = 'Not watched';
   }
 
   infoGroup.appendChild(title);
