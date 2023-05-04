@@ -11,3 +11,5 @@ TOP "Project: Sign-Up Form" Link: https://www.theodinproject.com/lessons/node-pa
 - Add filters for watched/not watched movies
 
 - Fix text overflow
+
+- Fix checkbox value bug

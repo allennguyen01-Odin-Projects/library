@@ -10,22 +10,29 @@ const movieGrid = document.getElementById('movie-grid');
 const addMovieBtn = document.getElementById('add-movie');
 const movieModal = document.getElementById('movie-modal');
 
-function Movie(title, director, rating, watched) {
-  this.title = title;
-  this.director = director;
-  this.rating = rating;
-  this.watched = watched;
-}
+class Movie {
+  constructor(
+    title = 'Unknown',
+    director = 'Unknown',
+    rating = NaN,
+    watched = false,
+  ) {
+    this.title = title;
+    this.director = director;
+    this.rating = rating;
+    this.watched = watched;
+  }
 
-Movie.prototype.info = function info() {
-  const watchedStatement = this.watched ? 'have watched' : 'not watched yet';
-  return `${this.title} by ${this.director}, ${this.rating} stars, ${watchedStatement}`;
-};
+  info() {
+    const watchedStatement = this.watched ? 'have watched' : 'not watched yet';
+    return `${this.title} by ${this.director}, ${this.rating} stars, ${watchedStatement}`;
+  }
+}
 
 function clearInputs() {
   titleElem.value = '';
   directorElem.value = '';
-  ratingElem.value = '';
+  ratingElem.value = 3;
   haveWatchedElem.value = '';
 }
 
@@ -126,18 +133,17 @@ function renderMovie(movie) {
   movieGrid.appendChild(movieCard);
 }
 
-function addMovieToLibrary() {
+function addMovieToLibrary(e) {
+  e.preventDefault();
   const title = titleElem.value;
   const director = directorElem.value;
   const rating = ratingElem.value;
-  const haveWatched = haveWatchedElem.value === 'on';
+  const haveWatched = haveWatchedElem.value === 'watched';
+  console.log(haveWatched);
   const newMovie = new Movie(title, director, rating, haveWatched);
   myLibrary.push(newMovie);
 
   console.log(newMovie.info());
-  clearInputs();
-  disableSubmit();
-  closeNewMovieModal();
   renderMovie(newMovie);
 }
 
@@ -176,7 +182,12 @@ console.log(myLibrary);
 
 renderMovies();
 
-submit.addEventListener('click', addMovieToLibrary);
+submit.addEventListener('click', (e) => {
+  addMovieToLibrary(e);
+  clearInputs();
+  disableSubmit();
+  closeNewMovieModal();
+});
 
 inputs.forEach((input) => {
   input.addEventListener('change', disableSubmit);
